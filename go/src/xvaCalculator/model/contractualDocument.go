@@ -1,28 +1,30 @@
 package model
 
 import (
-	_ "time"
+	"time"
 )
 
-type LegalDocument interface {
+type MasterAgreement struct {
+	NettingSet NettingSet
+}
+
+type LegalDocument struct {
 }
 
 type StandardCSA struct {
 }
 
-type StandardCSA2013EnglishLaw struct{}
-
-type StandardCSA2013NewYorkLaw struct{}
-
-type StandardCSA2014EnglishLaw struct{}
-
-type StandardCSA2014NewYorkLaw struct{}
+type DocumentType struct {
+	Name      string // i.e. Credit Support Annex
+	Publisher string //i.e. ISDA
+	Style     string //i.e. 2013 English Law
+}
 
 type Party struct{}
 
 type DocumentHeader struct {
-	AgreementDate            string
-	EffectiveDate            string
+	AgreementDate            time.Time
+	EffectiveDate            time.Time
 	PartyRoles               []*PartyRole
 	PartyDocumentIdentifiers []*PartyDocumentIdentifier
 }
@@ -36,4 +38,5 @@ type PartyDocumentIdentifier struct {
 	PartyReference  string
 	DocumentId      []*string
 	DocumentVersion string
+	AmendedDocument string
 }
