@@ -5,28 +5,34 @@ import (
 )
 
 type MasterAgreement struct {
-	NettingSet NettingSet
-}
-
-type LegalDocument struct {
+	nettingSets []*NettingSet
 }
 
 type StandardCSA struct {
+	DocumentType
+	partyDocIdentifiers []*PartyDocumentIdentifier
+	settlementDay       string
+	baseCurrency        string
+	independentAmounts  []*IndependentAmount
+}
+
+type SCSA2013NewYorkLaw struct {
+	StandardCSA
 }
 
 type DocumentType struct {
-	Name      string // i.e. Credit Support Annex
-	Publisher string //i.e. ISDA
-	Style     string //i.e. 2013 English Law
+	name      string // i.e. Credit Support Annex
+	publisher string //i.e. ISDA
+	style     string //i.e. 2013 English Law
 }
 
 type Party struct{}
 
 type DocumentHeader struct {
-	AgreementDate            time.Time
-	EffectiveDate            time.Time
-	PartyRoles               []*PartyRole
-	PartyDocumentIdentifiers []*PartyDocumentIdentifier
+	agreementDate            time.Time
+	effectiveDate            time.Time
+	partyRoles               []*PartyRole
+	partyDocumentIdentifiers []*PartyDocumentIdentifier
 }
 
 type Account struct{}
@@ -34,9 +40,11 @@ type Account struct{}
 type PartyRole struct{}
 
 type PartyDocumentIdentifier struct {
-	Id              string
-	PartyReference  string
-	DocumentId      []*string
-	DocumentVersion string
-	AmendedDocument string
+	id              string
+	partyReference  string
+	documentIds     []*string
+	documentVersion string
+	amendedDocument string
 }
+
+type IndependentAmount struct{}
